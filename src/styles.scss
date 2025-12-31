@@ -1,0 +1,68 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* You can add global styles to this file, and also import other style files */
+
+:root {
+  --bg: #f7f9ff;
+  --panel: #ffffff;
+  --accent: #2fbf87;
+  --text: #1b2b3c;
+  --muted: #5c6f85;
+  --danger: #e25555;
+  --panel-border: rgba(24, 46, 76, 0.12);
+  --panel-border-strong: rgba(24, 46, 76, 0.18);
+  --panel-soft: rgba(24, 46, 76, 0.06);
+  --accent-soft: rgba(47, 191, 135, 0.18);
+  --accent-soft-strong: rgba(47, 191, 135, 0.28);
+  --accent-border: rgba(47, 191, 135, 0.45);
+  --shadow: rgba(23, 41, 69, 0.18);
+  --header-height: 88px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", "Avenir", "Trebuchet MS", "Gill Sans", "Segoe UI", sans-serif;
+  background: radial-gradient(circle at 15% 10%, #fff4c7 0%, #f8fffb 30%, #e7f3ff 65%, #f7f9ff 100%);
+  color: var(--text);
+  font-size: 14px;
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
+@supports (-webkit-touch-callout: none) {
+  html,
+  body {
+    height: -webkit-fill-available;
+  }
+}
+
+.mat-mdc-snack-bar-container.snackbar-warn .mdc-snackbar__surface {
+  background: rgba(226, 85, 85, 0.95);
+  border: 1px solid rgba(226, 85, 85, 0.5);
+  box-shadow: 0 12px 30px rgba(23, 41, 69, 0.2);
+}
+
+.mat-mdc-snack-bar-container.snackbar-warn .mdc-snackbar__label,
+.mat-mdc-snack-bar-container.snackbar-warn .mdc-button__label {
+  color: #fff;
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__surface {
+  background: rgba(68, 207, 132, 0.95);
+  border: 1px solid rgba(68, 207, 132, 0.5);
+  box-shadow: 0 12px 30px rgba(23, 41, 69, 0.2);
+}
+
+.mat-mdc-snack-bar-container.snackbar-success .mdc-snackbar__label,
+.mat-mdc-snack-bar-container.snackbar-success .mdc-button__label {
+  color: #0f2b1b;
+}
