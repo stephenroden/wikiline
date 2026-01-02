@@ -1,0 +1,133 @@
+.done {
+  padding: 12px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  display: grid;
+  gap: 8px;
+}
+
+.done-overlay {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(247, 249, 255, 0.7);
+  backdrop-filter: blur(6px);
+  z-index: 950;
+}
+
+.done-overlay .done {
+  width: min(420px, 90vw);
+  box-shadow: 0 20px 50px rgba(23, 41, 69, 0.18);
+}
+
+.done-title {
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.done-score {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.done-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.done-summary {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.leaderboard {
+  margin: 12px 0 16px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+}
+
+.leaderboard-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.leaderboard ol {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 6px;
+}
+
+.leaderboard li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 12px;
+}
+
+.leaderboard-score {
+  font-weight: 700;
+}
+
+.leaderboard-time,
+.leaderboard-meta {
+  color: var(--muted);
+}
+
+.leaderboard-dots {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-start;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+}
+
+.summary-item strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.summary-item.dots-row {
+  align-items: center;
+}
+
+.dots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(226, 85, 85, 0.6);
+  border: 1px solid rgba(226, 85, 85, 0.9);
+}
+
+.dot.good {
+  background: rgba(68, 207, 132, 0.75);
+  border-color: rgba(68, 207, 132, 0.95);
+}
+
+.done.view-only {
+  margin-bottom: 10px;
+}

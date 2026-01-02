@@ -1,0 +1,58 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 16px 24px;
+  background: transparent;
+  border-bottom: 1px solid var(--panel-border);
+  backdrop-filter: blur(6px);
+  z-index: 900;
+}
+
+h1 {
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-size: 20px;
+}
+
+.score-card {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+  background: #fff;
+}
+
+.score {
+  padding: 8px 12px;
+  background: var(--panel-soft);
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  font-size: 12px;
+}

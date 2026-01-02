@@ -38,10 +38,39 @@ body {
   overflow: hidden;
 }
 
+.muted {
+  color: var(--muted);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--accent);
+  border: 1px solid var(--accent-border);
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.primary {
+  background: linear-gradient(135deg, #ffd76a, #7be7b0);
+  color: #1b2b3c;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
 @supports (-webkit-touch-callout: none) {
   html,
   body {
     height: -webkit-fill-available;
+  }
+}
+
+@media (max-width: 720px) {
+  .timeline-card .title-link {
+    display: none !important;
   }
 }
 

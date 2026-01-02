@@ -1,0 +1,34 @@
+:host(.intro-overlay) .splash {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: calc(var(--header-height) + 16px) 24px 24px;
+  background: transparent;
+  z-index: 30;
+}
+
+.splash {
+  margin: 12px 0 18px;
+}
+
+.splash-card {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 16px 40px var(--shadow);
+}
+
+.splash-card h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
