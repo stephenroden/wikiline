@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 
 test('intro waits for start game click', async ({ page }) => {
   const mockEvents = {

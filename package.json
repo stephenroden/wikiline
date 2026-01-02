@@ -6,7 +6,10 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "lint": "ng lint",
     "e2e": "playwright test",
+    "e2e:coverage": "PW_COVERAGE=1 playwright test && node scripts/convert-v8-coverage.mjs",
     "deploy:netlify": "npm run build && netlify deploy --prod --dir dist/client/browser"
   },
   "private": true,
@@ -30,7 +33,25 @@
     "@angular-devkit/build-angular": "^17.3.17",
     "@angular/cli": "^17.3.17",
     "@angular/compiler-cli": "^17.3.0",
+    "@angular-eslint/builder": "^17.3.0",
+    "@angular-eslint/eslint-plugin": "^17.3.0",
+    "@angular-eslint/eslint-plugin-template": "^17.3.0",
+    "@angular-eslint/template-parser": "^17.3.0",
     "@playwright/test": "^1.47.2",
-    "typescript": "~5.4.2"
+    "@types/jasmine": "~5.1.0",
+    "@typescript-eslint/eslint-plugin": "^7.8.0",
+    "@typescript-eslint/parser": "^7.8.0",
+    "eslint": "^8.57.0",
+    "istanbul-lib-coverage": "^3.2.2",
+    "istanbul-lib-report": "^3.0.1",
+    "istanbul-reports": "^3.1.7",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "typescript": "~5.4.2",
+    "v8-to-istanbul": "^9.3.0"
   }
 }

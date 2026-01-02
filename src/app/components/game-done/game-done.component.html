@@ -1,0 +1,61 @@
+<ng-container *ngIf="loading; else doneState">
+  <div class="done">
+    <div class="done-title">Researching fresh events...</div>
+    <div class="done-score">Just a moment while we load today's timeline.</div>
+  </div>
+</ng-container>
+<ng-template #doneState>
+  <div class="done-overlay" *ngIf="showCompletion; else viewOnlyBlock">
+    <div class="done">
+      <div class="done-title">Congrats! Timeline complete.</div>
+      <div class="done-score">Final score: {{ score }}</div>
+      <div class="done-summary">
+        <div class="summary-item dots-row">
+          <span>Placements</span>
+          <div class="dots">
+            <span
+              *ngFor="let dot of placementDots"
+              class="dot"
+              [class.good]="dot"
+              [class.bad]="!dot"
+            ></span>
+          </div>
+        </div>
+        <div class="summary-item"><span>Time</span><strong>{{ formatElapsed(elapsedMs) }}</strong></div>
+        <div class="summary-item"><span>Best streak</span><strong>{{ bestStreak }}</strong></div>
+        <div class="summary-item"><span>Scoring</span><strong>Base + streak bonus + time bonus</strong></div>
+      </div>
+      <div class="leaderboard" *ngIf="scoreboard.length">
+        <div class="leaderboard-title">
+          Leaderboard
+          <button class="ghost" (click)="clearScores.emit()">Reset</button>
+        </div>
+        <ol>
+          <li *ngFor="let entry of scoreboard; trackBy: trackByEntry">
+            <div class="leaderboard-dots">
+              <span
+                *ngFor="let dot of placementDotsFor(entry)"
+                class="dot"
+                [class.good]="dot"
+                [class.bad]="!dot"
+              ></span>
+            </div>
+            <span class="leaderboard-score">{{ entry.score }}</span>
+            <span class="leaderboard-time">{{ formatElapsed(entry.elapsedMs) }}</span>
+          </li>
+        </ol>
+      </div>
+      <div class="done-actions">
+        <button class="ghost" (click)="viewTimeline.emit()">View timeline</button>
+        <button class="primary" (click)="resetGame.emit()">Start new game</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #viewOnlyBlock>
+  <div class="done view-only">
+    <div class="done-title">Timeline complete.</div>
+    <div class="done-score">Final score: {{ score }}</div>
+    <button class="ghost" (click)="resetGame.emit()">Start new game</button>
+  </div>
+</ng-template>

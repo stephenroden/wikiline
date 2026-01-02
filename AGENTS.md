@@ -32,3 +32,6 @@
 ## Configuration & Safety Notes
 - Keep generated output (`dist/`) out of source edits; changes should originate in `src/`.
 - If you add environment-specific settings, prefer Angular environment files under `src/`.
+
+## Best Practice Enforcement
+- Follow the repository `CONTRIBUTING.md` checklist for Angular best practices during all changes.

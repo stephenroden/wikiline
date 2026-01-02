@@ -1,0 +1,21 @@
+<aside class="year-rail">
+  <div
+    class="year-rail-inner"
+    cdkDropList
+    #railList="cdkDropList"
+    id="railList"
+    [cdkDropListData]="slots"
+    [cdkDropListConnectedTo]="connections"
+    [cdkDropListEnterPredicate]="canEnter"
+    (cdkDropListDropped)="dropOnTimeline.emit($event)"
+    [cdkDropListAutoScrollDisabled]="true"
+    cdkDropListSortingDisabled
+  >
+    <div class="rail-line"></div>
+    <div class="rail-insert-line" *ngIf="railHoverIndex !== null" [style.top.%]="railInsertOffset()"></div>
+    <div class="year-mark" *ngFor="let slot of slots; let i = index; trackBy: trackBySlot" [style.top.%]="markOffset(i)">
+      <span class="year-dot"></span>
+      <span class="year-text">{{ slot.year }}</span>
+    </div>
+  </div>
+</aside>

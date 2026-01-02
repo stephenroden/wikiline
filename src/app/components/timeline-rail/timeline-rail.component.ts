@@ -1,44 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { CdkDragDrop, CdkDropList, DragDropModule } from '@angular/cdk/drag-drop';
-import type { EventItem } from '../models';
+import type { EventItem } from '../../models';
 
 @Component({
-  selector: 'timeline-rail',
+  selector: 'app-timeline-rail',
   standalone: true,
   imports: [CommonModule, DragDropModule],
+  templateUrl: './timeline-rail.component.html',
   styleUrls: ['./timeline-rail.component.scss'],
-  template: `
-    <aside class="year-rail">
-      <div
-        class="year-rail-inner"
-        cdkDropList
-        #railList="cdkDropList"
-        id="railList"
-        [cdkDropListData]="slots"
-        [cdkDropListConnectedTo]="connections"
-        [cdkDropListEnterPredicate]="canEnter"
-        (cdkDropListDropped)="dropOnTimeline.emit($event)"
-        [cdkDropListAutoScrollDisabled]="true"
-        cdkDropListSortingDisabled
-      >
-        <div class="rail-line"></div>
-        <div
-          class="rail-insert-line"
-          *ngIf="railHoverIndex !== null"
-          [style.top.%]="railInsertOffset()"
-        ></div>
-        <div
-          class="year-mark"
-          *ngFor="let slot of slots; let i = index"
-          [style.top.%]="markOffset(i)"
-        >
-          <span class="year-dot"></span>
-          <span class="year-text">{{ slot.year }}</span>
-        </div>
-      </div>
-    </aside>
-  `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimelineRailComponent {
   @Input({ required: true }) slots: EventItem[] = [];
@@ -48,6 +27,10 @@ export class TimelineRailComponent {
   @Output() dropOnTimeline = new EventEmitter<CdkDragDrop<EventItem[]>>();
   @ViewChild('railList', { read: ElementRef }) railListEl?: ElementRef<HTMLElement>;
   @ViewChild('railList', { read: CdkDropList }) dropList?: CdkDropList;
+
+  trackBySlot(_index: number, slot: EventItem) {
+    return `${slot.year}-${slot.title}`;
+  }
 
   railInsertOffset() {
     const count = this.slots.length;

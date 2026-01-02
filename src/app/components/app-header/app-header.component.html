@@ -1,0 +1,13 @@
+<header class="header" #header>
+  <div class="brand">
+    <img class="brand-logo" src="assets/icons/icon-72x72.png" alt="Wikiline logo" />
+    <h1>Wikiline</h1>
+  </div>
+  <div class="score-card" *ngIf="!showIntro">
+    <button class="ghost" (click)="resetGame.emit()">New</button>
+    <div class="timer" *ngIf="elapsedLabel">
+      <span class="muted">Time</span>
+      <strong>{{ elapsedLabel }}</strong>
+    </div>
+  </div>
+</header>

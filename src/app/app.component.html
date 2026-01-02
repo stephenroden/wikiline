@@ -1,0 +1,102 @@
+<div class="page" cdkDropListGroup>
+  <app-app-header
+    #appHeader
+    [showIntro]="store.showIntroOverlay()"
+    [elapsedLabel]="store.elapsedLabel()"
+    (resetGame)="reset()"
+  ></app-app-header>
+
+  <app-intro-panel
+    *ngIf="store.showIntroOverlay()"
+    [loadError]="store.loadError()"
+    (startGame)="startGame()"
+    (startDemo)="startDemo()"
+    class="intro-overlay"
+  ></app-intro-panel>
+
+  <div class="loading-overlay" *ngIf="store.loading()">
+    <div class="loading-card">
+      <div class="loading-title">Loading events</div>
+      <div class="muted">Fetching fresh timelines from Wikipedia…</div>
+    </div>
+  </div>
+
+  <div class="game" *ngIf="store.hasStarted()">
+    <app-timeline-rail
+      #railList
+      [slots]="store.slots()"
+      [connections]="railConnections()"
+      [canEnter]="canEnter"
+      [railHoverIndex]="railHoverIndex()"
+      (dropOnTimeline)="dropOnTimeline($event)"
+    ></app-timeline-rail>
+
+    <div class="game-main">
+      <div class="demo-banner" *ngIf="store.demoMode()">
+        <div>
+          <strong>Demo mode</strong> — we will drag a few cards into place so you can see how it works.
+        </div>
+        <button class="ghost" (click)="endDemo()">End</button>
+      </div>
+      <section class="next-card" *ngIf="store.current(); else doneBlock">
+        <div
+          cdkDropList
+          #handList="cdkDropList"
+          id="handList"
+          class="hand"
+          [cdkDropListData]="[store.current()]"
+          [cdkDropListConnectedTo]="handConnections()"
+        >
+          <div
+            class="card current-card"
+            #currentCard
+            cdkDrag
+            [cdkDragData]="store.current()"
+            (cdkDragMoved)="onDragMoved($event)"
+            [style.transform]="demoCardTransform()"
+            [class.demo-dragging]="store.demoMode() && demoCardTransform()"
+          >
+            <div class="card-meta">
+              <span class="muted">Next event</span>
+            </div>
+            <div class="card-title">{{ store.current()?.title }}</div>
+          </div>
+        </div>
+      </section>
+      <ng-template #doneBlock>
+        <app-game-done
+          [loading]="store.loading()"
+          [showCompletion]="store.showCompletion()"
+          [correct]="store.correct()"
+          [attempts]="store.attempts()"
+          [score]="store.score()"
+          [bestStreak]="store.bestStreak()"
+          [elapsedMs]="store.elapsedMs()"
+          [scoreboard]="store.scoreboard()"
+          (clearScores)="store.clearScoreboard()"
+          (viewTimeline)="viewTimeline()"
+          (resetGame)="reset()"
+        ></app-game-done>
+      </ng-template>
+
+      <app-timeline-list
+        #timelineList
+        [slots]="store.slots()"
+        [connections]="timelineConnections()"
+        [canEnter]="canEnter"
+        [isCorrected]="store.isCorrected"
+        [incorrectMessage]="store.incorrectMessage"
+        [insertIndex]="timelineInsertIndex()"
+        [insertHeight]="insertHeight()"
+        [insertTopPx]="insertTopPx()"
+        (dropOnTimeline)="dropOnTimeline($event)"
+      ></app-timeline-list>
+    </div>
+  </div>
+  <div
+    class="demo-hand"
+    *ngIf="demoHand() as hand"
+    [style.left.px]="hand.x"
+    [style.top.px]="hand.y"
+  ></div>
+</div>
