@@ -57,6 +57,7 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   insertTopPx = signal<number | null>(null);
 
   private demoTimers: number[] = [];
+  private lastInsertIndex: number | null = null;
   private demoSpeed = 2;
   private headerObserver?: ResizeObserver;
   private lastHeaderHeight = 0;
@@ -146,7 +147,11 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
     const hoverIndex = this.railHoverIndex();
-    const insertAt = event.container.id === 'railList' && hoverIndex !== null ? hoverIndex : event.currentIndex;
+    const timelineHover = this.timelineInsertIndex();
+    const insertAt =
+      event.container.id === 'railList'
+        ? hoverIndex ?? event.currentIndex
+        : timelineHover ?? event.currentIndex;
     const dragged = (event.item.data as EventItem) || this.store.current();
     this.store.dropAt(dragged, insertAt);
     this.clearRailHover();
@@ -291,15 +296,18 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!hover) {
       this.timelineInsertIndex.set(null);
       this.insertTopPx.set(null);
+      this.lastInsertIndex = null;
       return;
     }
     this.timelineInsertIndex.set(hover.index);
     this.insertTopPx.set(hover.topPx);
+    this.lastInsertIndex = hover.index;
   }
 
   private clearTimelineHover() {
     this.timelineInsertIndex.set(null);
     this.insertTopPx.set(null);
+    this.lastInsertIndex = null;
   }
 
   private updateInsertHeight() {

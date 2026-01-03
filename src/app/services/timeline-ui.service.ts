@@ -93,32 +93,27 @@ export class TimelineUiService {
     if (!listEl) return null;
     const rect = listEl.getBoundingClientRect();
     const { x, y } = pointer;
-    if (x < rect.left || x > rect.right) return null;
+    if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) return null;
     if (!cardEls.length) return { index: 0, topPx: 0 };
-    if (y <= rect.top) return { index: 0, topPx: 0 };
-    if (y >= rect.bottom) {
-      return { index: cardEls.length, topPx: listEl.clientHeight - height };
+    const centers = cardEls.map((card) => {
+      const cardRect = card.nativeElement.getBoundingClientRect();
+      return cardRect.top + cardRect.height / 2;
+    });
+    let index = 0;
+    if (y < centers[0]) {
+      index = 0;
+    } else if (y > centers[centers.length - 1]) {
+      index = cardEls.length;
+    } else {
+      for (let i = 1; i < centers.length; i += 1) {
+        if (y < centers[i]) {
+          index = i;
+          break;
+        }
+      }
     }
-    const bands: Array<{ top: number; bottom: number; index: number }> = [];
-    const firstRect = cardEls[0].nativeElement.getBoundingClientRect();
-    bands.push({ top: rect.top, bottom: firstRect.top, index: 0 });
-    for (let i = 1; i < cardEls.length; i += 1) {
-      const prevRect = cardEls[i - 1].nativeElement.getBoundingClientRect();
-      const nextRect = cardEls[i].nativeElement.getBoundingClientRect();
-      bands.push({ top: prevRect.bottom, bottom: nextRect.top, index: i });
-    }
-    const lastRect = cardEls[cardEls.length - 1].nativeElement.getBoundingClientRect();
-    bands.push({ top: lastRect.bottom, bottom: rect.bottom, index: cardEls.length });
-    const listTop = rect.top;
-    for (const band of bands) {
-      if (y < band.top || y > band.bottom) continue;
-      const bandHeight = band.bottom - band.top;
-      const center = (band.top + band.bottom) / 2;
-      const unclamped = center - height / 2;
-      const maxTop = band.bottom - height;
-      const clamped = bandHeight < height ? band.top : Math.min(Math.max(unclamped, band.top), maxTop);
-      return { index: band.index, topPx: Math.max(0, clamped - listTop) };
-    }
-    return { index: cardEls.length, topPx: Math.max(0, rect.bottom - listTop - height) };
+    const topPx = this.getInsertTopPx(listEl, cardEls, index, height);
+    if (topPx === null) return null;
+    return { index, topPx };
   }
 }
